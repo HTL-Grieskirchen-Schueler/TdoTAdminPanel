@@ -1,39 +1,58 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
 <style>
   
 </style>
 
 <main class="main">
   <h1>TdoTAdminPanel</h1>
-  Password: 
-  <input type="text" [(ngModel)]="password" />
-  <button (click)="onSubmit()">Fetch</button>
-  @for (item of fileMetadataArray; track $index) {
-    <div>
-      <h2>{{ item.name }}</h2>
-      <p>{{item.description}}</p>
-      <button (click)="downloadFile(item.getUrl, item.name)">Download</button>
-      <button (click)="uploadFile(item.postUrl)">Upload</button>
-      <hr />
+  <div class="password-input">
+    <label for="password">Password:</label>
+    <input type="password" id="password" [(ngModel)]="password" />
+    <button (click)="onSubmit()">Fetch</button>
+  </div>
+  @if (fileMetadataArray.length > 0) {
+  <div class="content-container">
+    <div class="file-list">
+      @for (item of fileMetadataArray; track $index) {
+      <div class="file-item">
+        <h2>{{ item.name }}</h2>
+        <p>{{ item.description }}</p>
+        <button (click)="downloadFile(item.getUrl, item.name)">Download</button>
+        <button (click)="uploadFile(item.postUrl)">Upload</button>
+        <hr />
+      </div>
+      }
     </div>
+    <div class="placeholder-list">
+      <div class="placeholder-actions">
+        <button (click)="savePlaceholderChanges()">Save</button>
+        <button (click)="discardPlaceholderChanges()">Reset</button>
+        <div class="info-icon-container">
+          <div class="info-icon">i</div>
+          <div class="info-tooltip">
+            <p>Placeholders are used to replace values in the files.</p>
+            <p>For example, if you have a file with the content "Anmeldungen für das Jahr %Schuljahr%", you can replace %Schuljahr% with a value of your choice.</p>
+            <div class="unsaved-legend">
+              <div class="color-box"></div>
+              <span>= Unsaved changes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      @for (item of placeholderArray; track $index) {
+        <div class="placeholder-item" [class.unsaved]="!item.savedRemotely">
+          <p>{{ item.key }}</p>
+          <input type="text" [(ngModel)]="item.value" (change)="placeholderValueChanged($index)"/>
+          <button (click)="removePlaceholder($index)">X</button>
+        </div>
+      }
+      <div class="placeholder-add">
+        <input type="text" [(ngModel)]="tempPlaceholderKey" placeholder="Key" />
+        <input type="text" [(ngModel)]="tempPlaceholderValue" placeholder="Value" />
+        <button (click)="addPlaceholder()">Add</button>
+      </div>
+    </div>
+  </div>
   }
 </main>
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced.  * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
 
 <router-outlet />

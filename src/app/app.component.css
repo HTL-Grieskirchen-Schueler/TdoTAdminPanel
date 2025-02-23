@@ -1,0 +1,249 @@
+.main {
+    font-family: sans-serif;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .password-input {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .password-input label {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+
+  .password-input input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex-grow: 1;
+  }
+
+  .password-input button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+
+  .password-input button:hover {
+    background-color: #0056b3;
+  }
+
+  .content-container {
+    display: flex;
+    gap: 20px;
+  }
+
+  .file-list {
+    flex: 1;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  .placeholder-list {
+    flex: 1;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+  }
+
+  .file-item {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+  }
+
+  .file-item h2 {
+    margin-top: 0;
+    color: #444;
+  }
+
+  .file-item p {
+    margin-bottom: 10px;
+    color: #666;
+  }
+
+  .file-item button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+
+  .file-item button:first-child {
+    background-color: #28a745;
+    color: white;
+  }
+
+  .file-item button:first-child:hover {
+    background-color: #218838;
+  }
+
+  .file-item button:last-child {
+    background-color: #17a2b8;
+    color: white;
+  }
+
+  .file-item button:last-child:hover {
+    background-color: #138496;
+  }
+
+  .file-item hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin-top: 15px;
+  }
+
+  .placeholder-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .placeholder-item p {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+
+  .placeholder-item input[type="text"] {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+
+  .placeholder-item span {
+    font-style: italic;
+    color: #888;
+  }
+
+  .placeholder-actions {
+    margin-top: 15px;
+  }
+
+  .placeholder-actions button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+
+  .placeholder-item.unsaved {
+    background-color: #ffe0e0;
+  }
+
+  .placeholder-add {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+  }
+
+  .placeholder-add input[type="text"] {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .info-icon-container {
+    position: relative;
+    display: inline-block;
+    margin-left: 10px;
+  }
+
+  .info-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 14px;
+    color: #555;
+  }
+
+  .info-tooltip {
+    visibility: hidden;
+    width: 200px;
+    background-color: #f9f9f9;
+    color: #333;
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    top: 125%;
+    bottom: auto;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border: 1px solid #ddd;
+  }
+
+  .info-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #f9f9f9 transparent transparent transparent;
+  }
+
+  .info-icon-container:hover .info-tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .info-tooltip .unsaved-legend {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .info-tooltip .unsaved-legend .color-box {
+    width: 20px;
+    height: 20px;
+    background-color: #ffe0e0;
+    margin-right: 10px;
+  }
+
+
+  @media (max-width: 768px) {
+    .content-container {
+      flex-direction: column;
+    }
+
+    .file-list,
+    .placeholder-list {
+      flex: none;
+      width: 100%;
+    }
+  }
