@@ -59,10 +59,6 @@ export class AppComponent {
       }
       console.log(this.fileMetadataArray)
     })
-
-    if(this.fileMetadataArray.length !== 0){
-    }
-    
   }
 
   async downloadFile(getUrl : string, fileName : string){
