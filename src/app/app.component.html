@@ -24,6 +24,7 @@
     </div>
     <div class="placeholder-list">
       <div class="placeholder-actions">
+        <h1>Placeholders | Platzhalter</h1>
         <button (click)="savePlaceholderChanges()">Save</button>
         <button (click)="discardPlaceholderChanges()">Reset</button>
         <div class="info-icon-container">
@@ -51,6 +52,33 @@
         <button (click)="addPlaceholder()">Add</button>
       </div>
     </div>
+    
+  </div>
+  <div class="activity-list">
+    <div class="placeholder-actions">
+      <h1>Activities | Präsentationen</h1>
+      <button (click)="saveActivityChanges()">Save</button>
+      <button (click)="discardActivityChanges()">Reset</button>
+      <div class="info-icon-container">
+        <div class="info-icon">i</div>
+        <div class="info-tooltip">
+          <p>The activities for the Day of open Doors.</p>
+          <p>Here, the names, description and room can be specified</p>
+          <div class="unsaved-legend">
+            <div class="color-box"></div>
+            <span>= Unsaved changes</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    @for (activity of activityArray; track $index) {
+      <div class="activity-item" [class.unsaved]="!activity.savedRemotely">
+        <input type="text" [(ngModel)]="activity.name" (change)="activityValueChanged($index)"/>
+        <input type="text" [(ngModel)]="activity.description" (change)="activityValueChanged($index)"/>
+        <input type="text" [(ngModel)]="activity.room" (change)="activityValueChanged($index)"/>
+        <button (click)="removeActivity($index)">X</button>
+      </div>
+    }
   </div>
   }
 </main>

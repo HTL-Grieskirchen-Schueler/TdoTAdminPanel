@@ -1,7 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
-import { FileMetadataDto, Placeholder, PlaceholderDto } from './models';
+import { Activity, ActivityDto, FileMetadataDto, Placeholder, PlaceholderDto } from './models';
 
 @Component({
   selector: 'app-root',
@@ -13,10 +13,14 @@ export class AppComponent {
 
   baseUrl = 'http://localhost:5292';
   placholderUrl = this.baseUrl + '/placeholder';
+  activityUrl = this.baseUrl + '/navigation/activities';
+  activityPutUrl = this.baseUrl + '/activities';
   
   fileMetadataArray : FileMetadataDto[] = [];
   placeholderArray : Placeholder[] = [];
   remoteValueArray : string[] = [];
+  activityArray : Activity[] = [];
+  remoteActivityArray : ActivityDto[] = [];
 
   tempPlaceholderKey = signal("")
   tempPlaceholderValue = signal("")
@@ -56,6 +60,7 @@ export class AppComponent {
       if (data != null) {
         this.fileMetadataArray = data;
         this.fillRemotePlaceholders();
+        this.fillRemoteActivities();
       }
       console.log(this.fileMetadataArray)
     })
@@ -191,6 +196,46 @@ export class AppComponent {
     })
   }
 
+  async fillRemoteActivities() {
+    //reset the activityArray and remoteActivityArray
+    this.activityArray = [];
+    this.remoteActivityArray = [];
+
+    fetch(this.activityUrl, {
+      method: 'GET',
+      headers: {
+        'password': await this.encryptedPassword()
+      },
+    }).then(response => {
+      console.log(response);
+      if (response.status === 200) {
+        return response.json();
+      }
+      else {
+        console.log('error');
+        return null;
+      }
+    }).then(data => {
+      console.log("Final Activity fetch:" + JSON.stringify(data));
+      if (data != null) {
+        const newActivityArray = data;
+        //fill the activityArray with the newActivityArray. Assume that activityArray is empty
+        newActivityArray.forEach((activityDto: ActivityDto) => {
+          //push the activityDto into the activityArray
+          const activity: Activity = {
+            name: activityDto.name,
+            room: activityDto.room,
+            description: activityDto.description,
+            savedRemotely: true
+          }
+          this.activityArray.push(activity);
+          this.remoteActivityArray.push(activityDto);
+        });
+      }
+      console.log(this.activityArray)
+    })
+  }
+
   placeholderValueChanged(index : number){
     //check in the remoteValueArray if the value has changed
     console.log("Checking if value has changed");
@@ -227,6 +272,67 @@ export class AppComponent {
       alert('Key already in use');
     }
     
+  }
+
+  compareActivities(activity : Activity, activityDto : ActivityDto){
+    return activity.name === activityDto.name && activity.room === activityDto.room && activity.description === activityDto.description;
+  }
+
+  activityValueChanged(index : number){
+    //check in the remoteValueArray if the value has changed
+    console.log("Checking if value has changed");
+    console.log("Actual:" + this.activityArray[index].name);
+    console.log("Remote:" + this.remoteActivityArray[index].name);
+
+    if(!this.compareActivities(this.activityArray[index], this.remoteActivityArray[index])){
+      this.activityArray[index].savedRemotely = false;
+    }
+    else{
+      this.activityArray[index].savedRemotely = true;
+    }
+  }
+
+  removeActivity(index : number){
+    this.activityArray.splice(index, 1);
+
+  }
+
+  async saveActivityChanges() {
+    //put onto the activity endpoint
+    const newActivityArray: ActivityDto[] = [];
+    this.activityArray.forEach((activity: Activity) => {
+      const activityDto: ActivityDto = {
+        name: activity.name,
+        room: activity.room,
+        description: activity.description
+      }
+      newActivityArray.push(activityDto);
+    });
+    console.log("Final Activity save:" + JSON.stringify(newActivityArray));
+
+    fetch(this.activityPutUrl, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'password': await this.encryptedPassword()
+      },
+      body: JSON.stringify(newActivityArray)
+    }).then(response => {
+      console.log(response);
+      if (response.status === 200) {
+        this.fillRemoteActivities();
+        return response;
+      }
+      else {
+        console.log('error');
+        return null;
+      }
+    })
+
+  }
+
+  async discardActivityChanges() {
+    this.fillRemoteActivities();
   }
 
   async savePlaceholderChanges() {

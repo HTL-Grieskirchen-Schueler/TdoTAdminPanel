@@ -15,3 +15,16 @@ export interface Placeholder {
     value : string;
     savedRemotely : boolean;
 }
+
+export interface ActivityDto {
+    name: string;
+    room: string;
+    description: string;
+}
+
+export interface Activity 
+    extends ActivityDto {
+        savedRemotely: boolean;
+    }
+
+

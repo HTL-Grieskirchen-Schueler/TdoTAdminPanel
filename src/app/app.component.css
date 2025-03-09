@@ -65,6 +65,14 @@
     border-radius: 8px;
   }
 
+  .activity-list {
+    flex: 1;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    margin:16px 0;
+  }
+
   .file-item {
     margin-bottom: 20px;
     padding: 15px;
@@ -119,6 +127,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    overflow: hidden;
   }
 
   .placeholder-item p {
@@ -132,9 +141,40 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-right: 10px;
+    box-sizing: border-box;
   }
 
   .placeholder-item span {
+    font-style: italic;
+    color: #888;
+  }
+
+  .activity-item {
+    display: flex;
+    margin-top: 2px;
+    align-items: center;
+    padding-bottom: 10px;
+    padding-top: 5px;
+    overflow: hidden;
+    padding-left : 10px;
+    padding-right: 10px;
+  }
+
+  .activity-item p {
+    margin-right: 10px;
+    font-weight: bold;
+  }
+
+  .activity-item input[type="text"] {
+    flex-grow: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px;
+    box-sizing: border-box;
+  }
+
+  .activity-item span {
     font-style: italic;
     color: #888;
   }
@@ -151,7 +191,7 @@
     margin-right: 10px;
   }
 
-  .placeholder-item.unsaved {
+  .activity-item.unsaved {
     background-color: #ffe0e0;
   }
 
@@ -245,5 +285,24 @@
     .placeholder-list {
       flex: none;
       width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .placeholder-item,
+    .activity-item {
+      flex-direction: column;
+      align-items: stretch; /* Stretch inputs to full width */
+    }
+
+    .placeholder-item input[type="text"],
+    .activity-item input[type="text"] {
+      width: 100%; /* Ensure inputs take full width */
+      margin-bottom: 5px; /* Add space between inputs */
+      margin-right: 0; /* Remove right margin */
+    }
+
+    .placeholder-item p {
+      margin-bottom: 5px; /* Add space between key and input */
     }
   }
