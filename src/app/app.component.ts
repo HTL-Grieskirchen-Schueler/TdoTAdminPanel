@@ -312,20 +312,23 @@ export class AppComponent {
   }
 
   compareActivities(activity : Activity, activityDto : ActivityDto){
+    
     return activity.name === activityDto.name && activity.room === activityDto.room && activity.description === activityDto.description;
   }
 
   activityValueChanged(index : number){
     //check in the remoteValueArray if the value has changed
-    console.log("Checking if value has changed");
-    console.log("Actual:" + this.activityArray[index].name);
-    console.log("Remote:" + this.remoteActivityArray[index].name);
 
-    if(!this.compareActivities(this.activityArray[index], this.remoteActivityArray[index])){
+    if(index >= this.remoteActivityArray.length){
       this.activityArray[index].savedRemotely = false;
     }
     else{
-      this.activityArray[index].savedRemotely = true;
+      if(!this.compareActivities(this.activityArray[index], this.remoteActivityArray[index])){
+        this.activityArray[index].savedRemotely = false;
+      }
+      else{
+        this.activityArray[index].savedRemotely = true;
+      }
     }
   }
 
