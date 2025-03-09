@@ -75,7 +75,11 @@
       <div class="activity-item" [class.unsaved]="!activity.savedRemotely">
         <input type="text" [(ngModel)]="activity.name" (change)="activityValueChanged($index)"/>
         <input type="text" [(ngModel)]="activity.description" (change)="activityValueChanged($index)"/>
-        <input type="text" [(ngModel)]="activity.room" (change)="activityValueChanged($index)"/>
+        <select [(ngModel)]="activity.room" (change)="activityValueChanged($index)">
+          @for (room of roomArray; track $index) {
+          <option [value]="room">{{ room }}</option>
+          }
+        </select>
         <button (click)="removeActivity($index)">X</button>
       </div>
     }

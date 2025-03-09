@@ -15,12 +15,14 @@ export class AppComponent {
   placholderUrl = this.baseUrl + '/placeholder';
   activityUrl = this.baseUrl + '/navigation/activities';
   activityPutUrl = this.baseUrl + '/activities';
+  roomUrl = this.baseUrl + '/rooms';
   
   fileMetadataArray : FileMetadataDto[] = [];
   placeholderArray : Placeholder[] = [];
   remoteValueArray : string[] = [];
   activityArray : Activity[] = [];
   remoteActivityArray : ActivityDto[] = [];
+  roomArray : string[] = [];
 
   tempPlaceholderKey = signal("")
   tempPlaceholderValue = signal("")
@@ -61,6 +63,7 @@ export class AppComponent {
         this.fileMetadataArray = data;
         this.fillRemotePlaceholders();
         this.fillRemoteActivities();
+        this.fillRooms();
       }
       console.log(this.fileMetadataArray)
     })
@@ -233,6 +236,30 @@ export class AppComponent {
         });
       }
       console.log(this.activityArray)
+    })
+  }
+
+  async fillRooms() {
+    fetch(this.roomUrl, {
+      method: 'GET',
+      headers: {
+        'password': await this.encryptedPassword()
+      },
+    }).then(response => {
+      console.log(response);
+      if (response.status === 200) {
+        return response.json();
+      }
+      else {
+        console.log('error');
+        return null;
+      }
+    }).then(data => {
+      console.log("Final Room fetch:" + JSON.stringify(data));
+      if (data != null) {
+        this.roomArray = data;
+      }
+      console.log(this.roomArray)
     })
   }
 
