@@ -239,6 +239,16 @@ export class AppComponent {
     })
   }
 
+  addActivity() {
+    const newActivity: Activity = {
+      name: 'Neue Präsentation',
+      room: this.roomArray[0],
+      description: 'Beschreibung',
+      savedRemotely: false
+    }
+    this.activityArray.push(newActivity);
+  }
+
   async fillRooms() {
     fetch(this.roomUrl, {
       method: 'GET',

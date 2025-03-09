@@ -6,8 +6,8 @@
   <h1>TdoTAdminPanel</h1>
   <div class="password-input">
     <label for="password">Password:</label>
-    <input type="password" id="password" [(ngModel)]="password" />
-    <button (click)="onSubmit()">Fetch</button>
+    <input type="password" id="password" [(ngModel)]="password" (keydown.enter)="onSubmit()"/>
+    <button (click)="onSubmit()">Anmelden</button>
   </div>
   @if (fileMetadataArray.length > 0) {
   <div class="content-container">
@@ -25,16 +25,16 @@
     <div class="placeholder-list">
       <div class="placeholder-actions">
         <h1>Placeholders | Platzhalter</h1>
-        <button (click)="savePlaceholderChanges()">Save</button>
-        <button (click)="discardPlaceholderChanges()">Reset</button>
+        <button (click)="savePlaceholderChanges()">Speichern</button>
+        <button (click)="discardPlaceholderChanges()">Zurücksetzen</button>
         <div class="info-icon-container">
           <div class="info-icon">i</div>
           <div class="info-tooltip">
-            <p>Placeholders are used to replace values in the files.</p>
-            <p>For example, if you have a file with the content "Anmeldungen für das Jahr %Schuljahr%", you can replace %Schuljahr% with a value of your choice.</p>
+            <p>Platzhalter ersetzen bestimmte passagen in den Dateien.</p>
+            <p>Zum Beispiel, würde der Text "Anmeldungen für das Schuljahr %Schuljahr%" ersetzt werden durch "Anmeldungen für das Schuljahr 26/27" wenn solch ein Platzhalter existiert</p>
             <div class="unsaved-legend">
               <div class="color-box"></div>
-              <span>= Unsaved changes</span>
+              <span>= Nicht gespeichert</span>
             </div>
           </div>
         </div>
@@ -49,7 +49,7 @@
       <div class="placeholder-add">
         <input type="text" [(ngModel)]="tempPlaceholderKey" placeholder="Key" />
         <input type="text" [(ngModel)]="tempPlaceholderValue" placeholder="Value" />
-        <button (click)="addPlaceholder()">Add</button>
+        <button (click)="addPlaceholder()">Hinzufügen</button>
       </div>
     </div>
     
@@ -57,16 +57,17 @@
   <div class="activity-list">
     <div class="placeholder-actions">
       <h1>Activities | Präsentationen</h1>
-      <button (click)="saveActivityChanges()">Save</button>
-      <button (click)="discardActivityChanges()">Reset</button>
+      <button (click)="saveActivityChanges()">Speichern</button>
+      <button (click)="discardActivityChanges()">Zurücksetzen</button>
+      <button (click)="addActivity()">Hinzufügen</button>
       <div class="info-icon-container">
         <div class="info-icon">i</div>
         <div class="info-tooltip">
-          <p>The activities for the Day of open Doors.</p>
-          <p>Here, the names, description and room can be specified</p>
+          <p>The präsentationen für den Tag der offenen Türen</p>
+          <p>Der Raum wird hierbei für die Indoor-Navigation benutzt</p>
           <div class="unsaved-legend">
             <div class="color-box"></div>
-            <span>= Unsaved changes</span>
+            <span>= Nicht gespeichert</span>
           </div>
         </div>
       </div>
