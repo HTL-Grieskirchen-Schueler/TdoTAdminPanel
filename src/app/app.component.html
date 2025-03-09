@@ -16,15 +16,15 @@
       <div class="file-item">
         <h2>{{ item.name }}</h2>
         <p>{{ item.description }}</p>
-        <button (click)="downloadFile(item.getUrl, item.name)">Download</button>
-        <button (click)="uploadFile(item.postUrl)">Upload</button>
+        <button (click)="downloadFile(item.getUrl, item.name)">Herunterladen</button>
+        <button (click)="uploadFile(item.postUrl)">Hochladen</button>
         <hr />
       </div>
       }
     </div>
     <div class="placeholder-list">
       <div class="placeholder-actions">
-        <h1>Placeholders | Platzhalter</h1>
+        <h1>Platzhalter</h1>
         <button (click)="savePlaceholderChanges()">Speichern</button>
         <button (click)="discardPlaceholderChanges()">Zurücksetzen</button>
         <div class="info-icon-container">
@@ -56,7 +56,7 @@
   </div>
   <div class="activity-list">
     <div class="placeholder-actions">
-      <h1>Activities | Präsentationen</h1>
+      <h1>Präsentationen</h1>
       <button (click)="saveActivityChanges()">Speichern</button>
       <button (click)="discardActivityChanges()">Zurücksetzen</button>
       <button (click)="addActivity()">Hinzufügen</button>
