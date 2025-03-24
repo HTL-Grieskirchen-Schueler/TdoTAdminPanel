@@ -1,3 +1,5 @@
+Ihr könnt mich (Stefan Wiesinger / Product Owner) unter stefanwiesinger2005@gmail.com erreichen.
+
 # TdoTAdminPanel
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.7.
