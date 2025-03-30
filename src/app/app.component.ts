@@ -11,7 +11,7 @@ import { Activity, ActivityDto, FileMetadataDto, Placeholder, PlaceholderDto } f
 })
 export class AppComponent {
 
-  baseUrl = 'http://localhost:5292';
+  baseUrl = '';
   placholderUrl = this.baseUrl + '/placeholder';
   activityUrl = this.baseUrl + '/navigation/activities';
   activityPutUrl = this.baseUrl + '/activities';
